@@ -3,6 +3,8 @@ package com.javarush.task.task10.task1012;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /* 
 Количество букв
@@ -29,7 +31,25 @@ public class Solution {
         }
 
 
-        // напишите тут ваш код
+
+        // Создаем упорядоченную карту. добавляем в него алфавит <Буква, Количество раз = 0>
+        Map<Character, Integer> map = new LinkedHashMap<>();
+        for (int i = 0; i < alphabet.size(); i++) {
+            map.put(alphabet.get(i), 0);
+        }
+
+        // Обновляем значения у нужных букв
+        for (String word : list) {
+           char charWord[] = word.toCharArray();
+            for (char aCharWord : charWord) {
+                if (map.containsKey(aCharWord)) {
+                    map.computeIfPresent(aCharWord, (k, v) -> v + 1);
+                }
+            }
+        }
+
+        //Вывод карты
+        map.forEach((key, value) -> System.out.println(key + " " + value));
     }
 
 }
